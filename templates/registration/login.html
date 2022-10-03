@@ -1,0 +1,23 @@
+{% extends 'root.html' %}
+{% load i18n %}
+
+{% load bootstrap %}
+
+{% block title %} {% trans 'Zaloguj się' %} {% endblock %}
+
+{% block page %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"> {% trans 'Zaloguj się' %}</h5>
+            <form method="POST">
+                {% csrf_token %}
+                {{ form|bootstrap }}
+                <button class="btn btn-primary" type="submit" style="margin-top:10px">
+                    {% trans 'Zaloguj' %}
+                    <i class="fas fa-sign-in-alt"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
