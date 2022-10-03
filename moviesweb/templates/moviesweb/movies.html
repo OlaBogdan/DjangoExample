@@ -1,0 +1,59 @@
+{% extends 'root.html' %}
+{% load i18n %}
+
+{% block title %} MovieWeb {% endblock %}
+
+{% block page %}
+
+    <div class="jumbotron">
+        {% if user.is_authenticated %}
+            <h1 class="display-4"> {{ user }} </h1>
+            <a class="btn btn-primary" href="{% url 'logout' %}">{% trans 'Wyloguj' %} <i class="fas fa-sign-out-alt"></i></a>
+        {% else %}
+            <a class="btn btn-primary" href="{% url 'login' %}">{% trans 'Zaloguj' %} <i class="fas fa-sign-in-alt"></i></a>
+        {% endif %}
+    </div>
+
+    {% if messages %}
+        <div class="card">
+            <div class="card-body">
+                {% for m in messages %}
+                    <p> {{ m }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+     <a class="" href="{% url 'add_movie' %}">{% trans 'Dodaj film' %} <i class="fas fa-plus-circle"></i></a>
+
+    {% if not movies %}
+        <h2> {% trans 'Brak filmów' %}. </h2>
+
+    {% else %}
+        {% for movie in movies %}
+            <div class="card">
+                <div class="card-body">
+                    <img class="moviePoster" src="/media/{{movie.poster}}">
+                    <div class="row">
+                        <div class="col-9">
+                            <h5 class="card-title">{{ movie }} </h5>
+                        </div>
+
+                        <div class="col-3">
+                            <a href="{% url 'edit_movie' movie.id %}"><i class="fas fa-2x fa-edit"></i></a>
+                            <a href="{% url 'delete_movie' movie.id %}"><i class="fas fa-2x fa-trash-alt"></i></a>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <p class="card-text"> {{ movie.description }} </p>
+                    </div>
+
+                </div>
+            </div>
+
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}

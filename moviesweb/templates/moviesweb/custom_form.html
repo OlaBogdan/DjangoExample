@@ -1,0 +1,21 @@
+{% extends 'root.html' %}
+{% load i18n %}
+
+{% load bootstrap %}
+
+{% block title %}  {% endblock %}
+
+{% block page %}
+    <div class="card">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|bootstrap }}
+                <button type="submit">{% trans 'Zapisz' %}</button>
+            </form>
+
+
+        </div>
+    </div>
+
+{% endblock %}
